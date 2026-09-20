@@ -11,6 +11,7 @@ if [ -d "/opt/printer_data" ]; then
 else
 	echo -e "\nCreating printer_data..."
 	mkdir -p /opt/printer_data/config
+	mkdir -p /opt/printer_data/gcodes
 	cp -r ./config/* /opt/printer_data/config/
 	git clone --depth 1 https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging.git /opt/printer_data/config/Klipper-Adaptive-Meshing-Purging
 	cd /opt/printer_data/config/
