@@ -19,6 +19,8 @@ services:
       - mainsail
     volumes:
       - /opt/printer_data:/root/printer_data:z
+    devices:
+      - /dev/gpiochip0:/dev/gpiochip0
     security_opt:
       - label=level:s0
     user: 0:0
@@ -30,13 +32,11 @@ services:
       dockerfile: klipper.Dockerfile
     volumes:
       - /opt/printer_data:/root/printer_data:z
-    
     devices:
       - ${MCU_1_DEVICE:-}:/dev/mcu1
       - ${MCU_2_DEVICE:-}:/dev/mcu2
       - ${MCU_3_DEVICE:-}:/dev/mcu3
       - ${MCU_4_DEVICE:-}:/dev/mcu4
-
     security_opt:
       - label=level:s0
     user: 0:0
@@ -57,13 +57,11 @@ services:
       - /dev/bus/usb:/dev/bus/usb:ro
     networks:
       - mainsail
-
     devices:
       - ${CAMERA_1_DEVICE}:/dev/video0
       - ${CAMERA_2_DEVICE}:/dev/video1
       - ${CAMERA_3_DEVICE}:/dev/video2
       - ${CAMERA_4_DEVICE}:/dev/video3
-
     security_opt:
       - label=disable
     privileged: true
