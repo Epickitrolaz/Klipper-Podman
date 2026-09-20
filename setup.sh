@@ -13,7 +13,9 @@ else
 	mkdir -p /opt/printer_data/config
 	cp -r ./config/* /opt/printer_data/config/
 	git clone --depth 1 https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging.git /opt/printer_data/config/Klipper-Adaptive-Meshing-Purging
-	ln -s /opt/printer_data/config/Klipper-Adaptive-Meshing-Purging/Configuration /opt/printer_data/config/KAMP
+	cd /opt/printer_data/config/
+	ln -s Klipper-Adaptive-Meshing-Purging/Configuration KAMP
+	cd -
 fi
 
 echo -e "\nBuilding Podman containers (this may take a while)..."
