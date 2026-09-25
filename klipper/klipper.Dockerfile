@@ -15,4 +15,11 @@ RUN mkdir /root/printer_data
 # Install the gcode shell comamnd extension to the klipper container
 RUN curl -fsSL https://raw.githubusercontent.com/dw-0/kiauh/master/kiauh/extensions/gcode_shell_cmd/assets/gcode_shell_command.py -o /root/klipper/klippy/extras/gcode_shell_command.py
 
-CMD ["/root/klippy-env/bin/python3", "/root/klipper/klippy/klippy.py", "/root/printer_data/config/printer.cfg", "-l", "/root/printer_data/logs/klippy.log", "-I", "/root/printer_data/comms/klippy.serial", "-a", "/root/printer_data/comms/klippy.sock"]
+RUN cd /root/klipper \
+    && printf 'CONFIG_MACH_LINUX=y\n' > .config \
+    && make olddefconfig && make
+
+COPY entrypoint.sh /root/entrypoint.sh
+RUN chmod +x /root/entrypoint.sh
+
+ENTRYPOINT ["/root/entrypoint.sh"]
